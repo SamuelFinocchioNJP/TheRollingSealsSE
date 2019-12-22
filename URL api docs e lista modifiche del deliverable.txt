@@ -1,0 +1,5 @@
+lista cambiamenti del deliverable:
+https://www.diffchecker.com/1SSF9g8r
+
+api docs url ( già presente sul deliverable ):
+https://documenter.getpostman.com/view/9815348/SWLYAqsh?version=latest

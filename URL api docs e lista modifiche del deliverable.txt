@@ -1,5 +1,6 @@
 lista cambiamenti del deliverable:
 https://www.diffchecker.com/1SSF9g8r
+Modificato sequence diagram.
 
 api docs url ( già presente sul deliverable nella sezione api ):
 https://documenter.getpostman.com/view/9815348/SWLYAqsh?version=latest

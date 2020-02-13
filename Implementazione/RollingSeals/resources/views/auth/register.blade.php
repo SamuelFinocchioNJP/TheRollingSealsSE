@@ -40,6 +40,13 @@
                         </div>
 
                         <div class="form-group row">
+                            <label for="ateneo_id" class="col-md-4 col-form-label text-md-right">Ateneo</label>
+
+                            <div class="col-md-6">
+                                <input id="ateneo_id" type="number" class="form-control @error('ateneo_id') is-invalid @enderror" name="ateneo_id" value="{{ old('ateneo_id') }}" required autocomplete="ateneo_id">                            </div>
+                        </div>
+
+                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">

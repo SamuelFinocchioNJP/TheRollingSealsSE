@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Corso;
+use Validator;
 
 class CorsoController extends Controller
 {
@@ -13,17 +15,7 @@ class CorsoController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Corso::all();
     }
 
     /**
@@ -34,7 +26,21 @@ class CorsoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $rules = [
+            'nome' => 'required|min:3|unique:corso_di_laurea',
+            'tipologia' => 'required',
+            'durata' => 'required',
+            'corso_id' => 'required'
+        ];
+
+        $validator =  Validator::make ( $request->all(), $rules );
+        if ( $validator -> fails( ) ) 
+            /// Bad request
+            return response() -> json( $validator->errors(), 400 );
+        
+
+        $corso = Corso::create( $request -> all( ) );
+        return response() -> json( $corso, 201 );
     }
 
     /**
@@ -45,7 +51,12 @@ class CorsoController extends Controller
      */
     public function show($id)
     {
-        //
+        $corso = Corso::find ( $id );
+
+        if ( is_null ( $corso ) ) 
+            return response() -> json ( ['message' => 'Selected course does not exist' ] );
+
+        return response() -> json ( $corso, 200 );
     }
 
     /**
@@ -54,9 +65,28 @@ class CorsoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $rules = [
+            'nome' => 'required|min:3|unique:corso_di_laurea',
+            'tipologia' => 'required',
+            'durata' => 'required',
+            'corso_id' => 'required'
+        ];
+
+        $validator =  Validator::make ( $request->all(), $rules );
+
+        if ( $validator -> fails( ) ) 
+            /// Bad request
+            return response() -> json( $validator->errors(), 400 );
+
+        $corso = Corso::find($id);
+        
+        if( is_null( $corso ) )
+            return response() -> json( [ 'message' => 'Selected course does not exist' ], 404 );
+        
+        $corso -> update( $request -> all() );
+        return response() -> json( $corso, 200 );   
     }
 
     /**
@@ -68,7 +98,13 @@ class CorsoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $corso = Corso::find($id);
+        
+        if( is_null( $corso ) )
+            return response() -> json( [ 'message' => 'Selected course does not exist' ], 404 );
+        
+        $corso -> update( $request -> all() );
+        return response() -> json( $corso, 200 );
     }
 
     /**
@@ -79,6 +115,20 @@ class CorsoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $corso = Corso::find($id);
+        if( is_null ( $corso ) )
+            return response() -> json( ['message'=>'Record does not exist'], 404 );
+        
+        $corso -> delete();
+        return response() -> json ( 204 );
+    }
+
+    public function getExams ( $id ) {
+        $corso = Corso::find ( $id );
+
+        if ( is_null ( $corso ) ) 
+            return response() -> json ( ['message' => 'Selected course does not exist' ] );
+
+        return response() -> json ( $corso -> exams() -> get(), 200 );
     }
 }

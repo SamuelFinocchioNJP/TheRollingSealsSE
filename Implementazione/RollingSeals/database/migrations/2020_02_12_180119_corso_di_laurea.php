@@ -4,27 +4,21 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CorsoDiLaurea extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('corso_di_laurea', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->integer('punteggio')->default(10);
+            $table->string('nome');
+            $table->string('tipologia');
+            $table->integer('durata'); // Hours
 
             $table->bigInteger('ateneo_id');
             $table->foreign('ateneo_id')->references('id')->on('ateneo');
-
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('corso_di_laurea');
     }
 }

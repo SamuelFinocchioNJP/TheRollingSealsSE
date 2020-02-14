@@ -1,6 +1,10 @@
 lista cambiamenti del deliverable:
-https://www.diffchecker.com/1SSF9g8r
-Modificato sequence diagram.
+Modificato component diagram.
+Tradotte e modificate API.
+Aggiunta paginazione.
+Implementazione dei controller.
+Test delle API con una semplice interfaccia grafica.
+Valutazione delle prestazioni.
 
 api docs url ( già presente sul deliverable nella sezione api ):
-https://documenter.getpostman.com/view/9815348/SWLYAqsh?version=latest
+https://documenter.getpostman.com/view/9815348/SWLYAqsh
